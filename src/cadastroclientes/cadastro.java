@@ -16,6 +16,35 @@ public class cadastro extends javax.swing.JPanel {
      */
     public cadastro() {
         initComponents();
+
+        cpSelectEstado.addItem("Acre");
+        cpSelectEstado.addItem("Alagoas ");
+        cpSelectEstado.addItem("Amapá");
+        cpSelectEstado.addItem("Amazonas ");
+        cpSelectEstado.addItem("Bahia");
+        cpSelectEstado.addItem("Ceará");
+        cpSelectEstado.addItem("Distrito Federal");
+        cpSelectEstado.addItem("Espírito Santo");
+        cpSelectEstado.addItem("Goiás");
+        cpSelectEstado.addItem("Maranhão ");
+        cpSelectEstado.addItem("Mato Grosso");
+        cpSelectEstado.addItem("Mato Grosso do Sul");
+        cpSelectEstado.addItem("Minas Gerais");
+        cpSelectEstado.addItem("Pará");
+        cpSelectEstado.addItem("Paraíba");
+        cpSelectEstado.addItem("Paraná");
+        cpSelectEstado.addItem("Pernambuco");
+        cpSelectEstado.addItem("Piauí");
+        cpSelectEstado.addItem("Rio de Janeiro");
+        cpSelectEstado.addItem("Rio Grande do Norte");
+        cpSelectEstado.addItem("Rio Grande do Sul");
+        cpSelectEstado.addItem("Rondônia");
+        cpSelectEstado.addItem("Roraima");
+        cpSelectEstado.addItem("Santa Catarina");
+        cpSelectEstado.addItem("São Paulo");
+        cpSelectEstado.addItem("Sergipe ");
+        cpSelectEstado.addItem("Tocantins");
+
     }
 
     /**
@@ -87,11 +116,23 @@ public class cadastro extends javax.swing.JPanel {
             }
         });
 
+        try {
+            cpFormatadoCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         lbIscricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbIscricao.setText("Iscriçao estadual");
 
         lbData.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbData.setText("Data");
+
+        try {
+            cpFormatadoData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         lbCidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbCidade.setText("Cidade");
@@ -110,6 +151,12 @@ public class cadastro extends javax.swing.JPanel {
         lbCep.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbCep.setText("Cep");
 
+        try {
+            cpFormatadoCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         lbBairro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbBairro.setText("Bairro");
 
@@ -122,8 +169,20 @@ public class cadastro extends javax.swing.JPanel {
         lbTelefone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbTelefone.setText("Telefone");
 
+        try {
+            CpFormatadoTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         lbCelularEmpresa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbCelularEmpresa.setText("Celular");
+
+        try {
+            cpFormatadoCelularEmpresa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####  ####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         lbEmail.setFont(lbEmail.getFont().deriveFont(lbEmail.getFont().getSize()+3f));
         lbEmail.setText("Email");
@@ -134,6 +193,11 @@ public class cadastro extends javax.swing.JPanel {
         lbCpf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbCpf.setText("Cpf");
 
+        try {
+            cpFormatadoCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         cpFormatadoCpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cpFormatadoCpfActionPerformed(evt);
@@ -142,6 +206,12 @@ public class cadastro extends javax.swing.JPanel {
 
         lbRenda.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbRenda.setText("Renda");
+
+        try {
+            cpFormatadoCelularResponsavel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####  ####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         lbCelularResponsavel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbCelularResponsavel.setText("Celular");
@@ -267,7 +337,7 @@ public class cadastro extends javax.swing.JPanel {
                     .addComponent(lbNomeEmpresa)
                     .addComponent(cpFormatadoCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbCnpj))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbIscricao)
                     .addComponent(cpFormatadoData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -325,9 +395,9 @@ public class cadastro extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cpFormatadoCelularResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbCelularResponsavel))))
-                .addGap(121, 121, 121)
+                .addGap(94, 94, 94)
                 .addComponent(jLabel1)
-                .addContainerGap(7183, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
