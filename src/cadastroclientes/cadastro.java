@@ -445,7 +445,7 @@ public class cadastro extends javax.swing.JPanel {
         } catch (IOException ex) {
             Logger.getLogger(cadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
 
     }//GEN-LAST:event_btCadastroActionPerformed
     private boolean validarCampos() throws IOException {
@@ -474,7 +474,7 @@ public class cadastro extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "CNPJ Invalido");
             return false;
         }
-        if (!cpFormatadoCpf.getText().equals("")) {
+        if (cpFormatadoCpf.getText() != ("   .   .   -  ")) {
             CPFValidator vali = new CPFValidator();
             try {
                 vali.assertValid(cpFormatadoCpf.getText());
@@ -483,10 +483,13 @@ public class cadastro extends javax.swing.JPanel {
                 return false;
             }
         }
-if(this.tratamentoDeDados()){
-     JOptionPane.showMessageDialog(null, "Email enviado com susseso: ");
-}
+        if (this.tratamentoDeDados()) {
+            JOptionPane.showMessageDialog(null, "Email enviado com susseso: ");
+           
+        }else{ JOptionPane.showMessageDialog(null, "Falha no email");
         return true;
+    }
+        return false;
     }
 
     private boolean tratamentoDeDados() throws IOException {
@@ -498,9 +501,9 @@ if(this.tratamentoDeDados()){
                 + "\nEstado: " + cpSelectEstado.getSelectedItem() + "\tCidade: " + cpCidade.getText() + "\tCep: " + cpFormatadoCep.getText() + "\nBairro: " + cpBairro.getText() + "\tNumero: " + cpEnderecoNumero.getText()
                 + "\nTelefone: " + CpFormatadoTelefone.getText() + "\tCelular: " + cpFormatadoCelularEmpresa.getText() + "\tEmail: " + cpEmail.getText() + "\nResponsavel:\nCpf: " + cpFormatadoCpf.getText()
                 + "\tRenda: " + cpRenda.getText() + "\nCelular: " + cpFormatadoCelularResponsavel.getText() + "\tLinkes: " + CpLinkFace.getText() + "\t" + CpLinkInsta.getText();
-gravar.gravar(arquivo);
-enviar.enviar("ivan_resini@estudante.sc.senai.br", cpEmail.getText(), "Cadastro ", arquivo);
-        return false;
+        gravar.gravar(arquivo);
+     boolean email=   enviar.enviar("ivan_resini@estudante.sc.senai.br", cpEmail.getText(), "Cadastro ", arquivo);
+        return email;
 
     }
 

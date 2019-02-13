@@ -32,7 +32,7 @@ public Email(){
                 new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("senai.test@dextak.com", "(senai)");
+                return new PasswordAuthentication("senai.teste@dextak.com", "(senai)");
             }
         });
    }
