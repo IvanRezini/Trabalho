@@ -150,7 +150,7 @@ public class cadastro extends javax.swing.JPanel {
         lbEstado.setText("Estado");
 
         cpSelectEstado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cpSelectEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select" }));
+        cpSelectEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione"}));
         cpSelectEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cpSelectEstadoActionPerformed(evt);
@@ -305,8 +305,8 @@ public class cadastro extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lbEstado)
                                 .addGap(18, 18, 18)
-                                .addComponent(cpSelectEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
+                                .addComponent(cpSelectEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lbCidade)
@@ -440,7 +440,7 @@ public class cadastro extends javax.swing.JPanel {
     private void btCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastroActionPerformed
         try {
             if (this.validarCampos()) {
-                JOptionPane.showMessageDialog(null, "Campos Preenchidos coretamente");
+                JOptionPane.showMessageDialog(null, "Cadastro finalizado");
             }
         } catch (IOException ex) {
             Logger.getLogger(cadastro.class.getName()).log(Level.SEVERE, null, ex);
@@ -474,7 +474,7 @@ public class cadastro extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "CNPJ Invalido");
             return false;
         }
-        if (cpFormatadoCpf.getText() != ("   .   .   -  ")) {
+        if (cpFormatadoCpf.getText().isEmpty()) {
             CPFValidator vali = new CPFValidator();
             try {
                 vali.assertValid(cpFormatadoCpf.getText());
@@ -485,11 +485,11 @@ public class cadastro extends javax.swing.JPanel {
         }
         if (this.tratamentoDeDados()) {
             JOptionPane.showMessageDialog(null, "Email enviado com susseso: ");
-           
+           return true;
         }else{ JOptionPane.showMessageDialog(null, "Falha no email");
-        return true;
-    }
         return false;
+    }
+        
     }
 
     private boolean tratamentoDeDados() throws IOException {
@@ -500,7 +500,7 @@ public class cadastro extends javax.swing.JPanel {
         arquivo = "\nNome da empresa: " + cpNomeEmpresa.getText() + "\tCnpj: " + cpFormatadoCnpj.getText() + "\tInscricao estadual: " + cpIscricaoEstadual.getText() + "\tData da inscricao:" + cpFormatadoData.getText()
                 + "\nEstado: " + cpSelectEstado.getSelectedItem() + "\tCidade: " + cpCidade.getText() + "\tCep: " + cpFormatadoCep.getText() + "\nBairro: " + cpBairro.getText() + "\tNumero: " + cpEnderecoNumero.getText()
                 + "\nTelefone: " + CpFormatadoTelefone.getText() + "\tCelular: " + cpFormatadoCelularEmpresa.getText() + "\tEmail: " + cpEmail.getText() + "\nResponsavel:\nCpf: " + cpFormatadoCpf.getText()
-                + "\tRenda: " + cpRenda.getText() + "\nCelular: " + cpFormatadoCelularResponsavel.getText() + "\tLinkes: " + CpLinkFace.getText() + "\t" + CpLinkInsta.getText();
+                + "\tRenda: " + cpRenda.getText() + "\nCelular: " + cpFormatadoCelularResponsavel.getText() + "\tLinkes: " + CpLinkFace.getText() + "\t" + CpLinkInsta.getText()+"\n\n";
         gravar.gravar(arquivo);
      boolean email=   enviar.enviar("ivan_resini@estudante.sc.senai.br", cpEmail.getText(), "Cadastro ", arquivo);
         return email;
