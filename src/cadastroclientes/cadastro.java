@@ -8,6 +8,9 @@ package cadastroclientes;
 import br.com.caelum.stella.validation.CNPJValidator;
 import br.com.caelum.stella.validation.CPFValidator;
 import br.com.caelum.stella.validation.InvalidStateException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -435,60 +438,71 @@ public class cadastro extends javax.swing.JPanel {
     }//GEN-LAST:event_cpFormatadoCpfActionPerformed
 
     private void btCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastroActionPerformed
-        if (this.validarCampos()) {
-            JOptionPane.showMessageDialog(null, "Campos Preenchidos coretamente");
-            
-            
+        try {
+            if (this.validarCampos()) {
+                JOptionPane.showMessageDialog(null, "Campos Preenchidos coretamente");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(cadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
+      
 
     }//GEN-LAST:event_btCadastroActionPerformed
-private boolean validarCampos() {
+    private boolean validarCampos() throws IOException {
         CNPJValidator validator = new CNPJValidator();
 
         try {
-            
-            String nome=cpNomeEmpresa.getText();
-            if(nome.trim().equals("")){
-              JOptionPane.showMessageDialog(null,"Informe o nome da empresa"); 
-              return false;
-            }
-          
-            validator.assertValid(cpFormatadoCnpj.getText());
-            
-            if( cpIscricaoEstadual.getText().equals("")){
-                   JOptionPane.showMessageDialog(null,"Incira a Inscricao estadual");
-                return false;
-            }
-            if(cpFormatadoData.getText().equals("")){
-                JOptionPane.showMessageDialog(null,"Informe a data Da inscricao");
-                return false;
-            }
-            
-           
-                
-            
-            
-            
-              
-        } catch (InvalidStateException e) { 
-         JOptionPane.showMessageDialog(null, "CNPJ Invalido");
-         return false;
-        }
-         if(!cpFormatadoCpf.getText().equals("")){
-                CPFValidator vali = new CPFValidator();
-               try
-               {
-                 vali.assertValid(cpFormatadoCpf.getText());
-               } catch (InvalidStateException e) { 
-         JOptionPane.showMessageDialog(null, "Cpf Invalido");
-         return false;
-        } 
-         }
 
-        
-return true;
+            String nome = cpNomeEmpresa.getText();
+            if (nome.trim().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o nome da empresa");
+                return false;
+            }
+
+            validator.assertValid(cpFormatadoCnpj.getText());
+
+            if (cpIscricaoEstadual.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Incira a Inscricao estadual");
+                return false;
+            }
+            if (cpFormatadoData.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe a data Da inscricao");
+                return false;
+            }
+
+        } catch (InvalidStateException e) {
+            JOptionPane.showMessageDialog(null, "CNPJ Invalido");
+            return false;
+        }
+        if (!cpFormatadoCpf.getText().equals("")) {
+            CPFValidator vali = new CPFValidator();
+            try {
+                vali.assertValid(cpFormatadoCpf.getText());
+            } catch (InvalidStateException e) {
+                JOptionPane.showMessageDialog(null, "Cpf Invalido");
+                return false;
+            }
+        }
+if(this.tratamentoDeDados()){
+     JOptionPane.showMessageDialog(null, "Email enviado com susseso: ");
+}
+        return true;
     }
-         
+
+    private boolean tratamentoDeDados() throws IOException {
+
+        GravarArquivo gravar = new GravarArquivo("Dados");
+        Email enviar = new Email();
+        String arquivo = null;
+        arquivo = "\nNome da empresa: " + cpNomeEmpresa.getText() + "\tCnpj: " + cpFormatadoCnpj.getText() + "\tInscricao estadual: " + cpIscricaoEstadual.getText() + "\tData da inscricao:" + cpFormatadoData.getText()
+                + "\nEstado: " + cpSelectEstado.getSelectedItem() + "\tCidade: " + cpCidade.getText() + "\tCep: " + cpFormatadoCep.getText() + "\nBairro: " + cpBairro.getText() + "\tNumero: " + cpEnderecoNumero.getText()
+                + "\nTelefone: " + CpFormatadoTelefone.getText() + "\tCelular: " + cpFormatadoCelularEmpresa.getText() + "\tEmail: " + cpEmail.getText() + "\nResponsavel:\nCpf: " + cpFormatadoCpf.getText()
+                + "\tRenda: " + cpRenda.getText() + "\nCelular: " + cpFormatadoCelularResponsavel.getText() + "\tLinkes: " + CpLinkFace.getText() + "\t" + CpLinkInsta.getText();
+gravar.gravar(arquivo);
+enviar.enviar("ivan_resini@estudante.sc.senai.br", cpEmail.getText(), "Cadastro ", arquivo);
+        return false;
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField CpFormatadoTelefone;
